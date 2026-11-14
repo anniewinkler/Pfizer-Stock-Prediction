@@ -10,14 +10,13 @@ from sklearn.metrics import mean_absolute_error
 
 st.set_page_config(page_title="Stock Price Forecaster", page_icon="📈", layout="wide")
 
-st.title("📈 Stock Price Forecaster")
+st.title("Stock Price Forecaster")
 st.caption(
-    "Holt-Winters Exponential Smoothing vs. a Naive (previous-day) baseline. "
-    "Educational project, not financial advice."
+    "Exponential Smoothing vs. a Naive (previous-day) baseline. "
 )
 
 
-# ---------- Data ----------
+#Data
 @st.cache_data(ttl=3600, show_spinner="Downloading price data...")
 def load_data(ticker: str, start: dt.date, end: dt.date) -> pd.DataFrame:
     data = yf.download(ticker, start=start, end=end, progress=False, auto_adjust=True)
@@ -41,7 +40,7 @@ def fit_hw(series: pd.Series) -> ExponentialSmoothing:
     ).fit()
 
 
-# ---------- Sidebar ----------
+#Sidebar
 st.sidebar.header("Settings")
 ticker = st.sidebar.text_input("Ticker symbol", value="PFE").strip().upper()
 start = st.sidebar.date_input("Start date", value=dt.date(2019, 1, 1))
@@ -57,7 +56,7 @@ if df.empty or len(df) < 100:
     st.error(f"Not enough data for '{ticker}'. Check the ticker or start date.")
     st.stop()
 
-# ---------- Backtest (mirrors the notebook) ----------
+#Backtest (mirrors the notebook)
 test_size = int(len(df) * test_pct / 100)
 train, test = df.iloc[:-test_size], df.iloc[-test_size:]
 
@@ -99,7 +98,7 @@ ax2.plot(test.index[:n], naive.iloc[:n], ":", marker="s", label="Naive (previous
 ax2.set_title(f"First {n} test days"); ax2.grid(True); ax2.legend()
 st.pyplot(fig2)
 
-# ---------- Future forecast ----------
+#Future forecast
 st.subheader(f"Forecast: next {horizon} business days")
 full_fit = fit_hw(df["close"])
 future_idx = pd.bdate_range(df.index[-1] + pd.offsets.BDay(1), periods=horizon)
