@@ -12,4 +12,3 @@ streamlit run app.py
 ## Deploy
 Deployed on Streamlit Community Cloud from this repo (main file: `app.py`).
 
-*Educational project. Not financial advice.*
