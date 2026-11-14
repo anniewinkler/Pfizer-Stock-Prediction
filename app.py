@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 from sklearn.metrics import mean_absolute_error
 
-st.title("📈 Stock Price Forecaster")
-st.caption("Exponential Smoothing vs. a Naive baseline. Educational only, not financial advice.")
+st.title("Pfizer Stock Price Forecaster")
+st.caption("Exponential Smoothing vs. a Naive baseline.")
 
 ticker = st.text_input("Ticker symbol", "PFE").upper()
 days = st.slider("Days to forecast", 5, 60, 30)
