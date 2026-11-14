@@ -5,8 +5,8 @@ import streamlit as st
 import yfinance as yf
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
-st.title("📈 Stock Price Predictor")
-st.caption("Pick a future date and compare two methods. Educational only, not financial advice.")
+st.title("📈 Pfizer Stock Price Predictor")
+st.caption("Pick a future date and compare two methods.")
 
 ticker = st.text_input("Ticker symbol", "PFE").upper()
 
